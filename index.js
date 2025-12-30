@@ -36,11 +36,11 @@ app.post('/login', async (req, res) => {
 
   try {
     // Hitung MD5 password (tetap pakai default)
-    const md5pwd = crypto.MD5(DEFAULT_PASSWORD).toString();
+    const md5pwd = crypto.createHash("md5").update(DEFAULT_PASSWORD).digest("hex")
 
     // Buat sign
     const rawSign = `account=${DEFAULT_ACCOUNT}&e_captcha=${DEFAULT_E_CAPTCHA}&md5pwd=${md5pwd}&op=login`;
-    const sign = crypto.MD5(rawSign).toString();
+    const sign = crypto.createHash("md5").update(rawSign).digest("hex");
 
     const payload = {
       op: "login",
